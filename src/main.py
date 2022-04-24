@@ -1,4 +1,3 @@
-import re
 
 
 # extract data.txt from the config.txt.txt file
