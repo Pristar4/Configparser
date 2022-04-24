@@ -1,40 +1,40 @@
 def readmappingtable():
     with open("config.txt", "r") as f:
-        map = f.read()
-    map = map.split("\n")
-    map = [i.split("=") for i in map if i != ""]
-    print(map)
-    return map
+        mapdata = f.read()
+    mapdata = mapdata.split("\n")
+    mapdata = [i.split("=") for i in mapdata if i != ""]
+    print(mapdata)
+    return mapdata
 
 
 def convertdata():  # convert input.txt to output.txt
-    input = open("input.txt", "r")
-    output = open("output.txt", "w")
-    map = readmappingtable()
-    for line in input:
-        for i in range(len(map)):
-            a = map[i][0]
-            b = map[i][1]
+    inputdata = open("input.txt", "r")
+    outputdata = open("output.txt", "w")
+    mapdata = readmappingtable()
+    for line in inputdata:
+        for i in range(len(mapdata)):
+            a = mapdata[i][0]
+            b = mapdata[i][1]
             line = extractline(line, a, b)
 
-        output.write(line)
-    input.close()
-    output.close()
+        outputdata.write(line)
+    inputdata.close()
+    outputdata.close()
 
 
 def reverseconvertdata():  # reverse the conversion process of convertdata()
-    input = open("output.txt", "r")
-    output = open("input.txt", "w")
-    map = readmappingtable()
-    for line in input:
-        for i in range(len(map)):
-            a = map[i][1]
-            b = map[i][0]
+    inputdata = open("output.txt", "r")
+    outputdata = open("input.txt", "w")
+    mapdata = readmappingtable()
+    for line in inputdata:
+        for i in range(len(mapdata)):
+            a = mapdata[i][1]
+            b = mapdata[i][0]
             line = extractline(line, a, b)
 
-        output.write(line)
-    input.close()
-    output.close()
+        outputdata.write(line)
+    inputdata.close()
+    outputdata.close()
 
 
 def extractline(line, a, b):
