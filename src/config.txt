@@ -21,7 +21,7 @@ i=i
 o=o
 p=p
 ü=BracketOpen
-+=BracketClose
+"+""Equals""BracketClose"
 a=a
 s=s
 d=d
@@ -46,6 +46,3 @@ m=m
 .=Period
 -=Minus
 -=Slash
-
-
-

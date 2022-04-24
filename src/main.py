@@ -1,4 +1,4 @@
-path_input = "C:/Users/felix/Documents/StarCraft II/Accounts/463101077/Hotkeys/Story.SC2Hotkeys"
+path_input = "input.txt"
 path_output = "output.txt"
 
 
@@ -10,48 +10,55 @@ def readmappingtable():
     return mapdata
 
 
-def convertdata():  # convert input.txt to output.txt
+mapdata = readmappingtable()
+print(mapdata)
+
+
+def convertdata():
+    # convert input.txt to output.txt
     inputdata = open(path_input, "r")
     outputdata = open(path_output, "w")
-    mapdata = readmappingtable()
+
     for line in inputdata:
         for i in range(len(mapdata)):
-            a = mapdata[i][0]
-            b = mapdata[i][1]
+            a = mapdata[i][1]
+            b = mapdata[i][0]
             line = extractline(line, a, b)
-
         outputdata.write(line)
     inputdata.close()
     outputdata.close()
 
 
 def reverseconvertdata():  # reverse the conversion process of convertdata()
-    inputdata = open(path_output, "r")
-    outputdata = open(path_input, "w")
-    mapdata = readmappingtable()
+    # convert input.txt to output.txt
+    inputdata = open(path_input, "r")
+    outputdata = open(path_output, "w")
+
     for line in inputdata:
         for i in range(len(mapdata)):
-            a = mapdata[i][1]
-            b = mapdata[i][0]
+            a = mapdata[i][0]
+            b = mapdata[i][1]
             line = extractline(line, a, b)
-
         outputdata.write(line)
     inputdata.close()
     outputdata.close()
 
 
 def extractline(line, a, b):
-    # improvment: use regex to replace
-    s = line.split("=")
-    left = s[0]
-    right = s[1]
+    # Check for "=" in line
+    if "=" in line:
+        line = line.split("=", 1)  # split line into two strings
+        line[1] = line[1].strip()  # remove whitespace from the right side of the string
+        line[1] = line[1].replace(a, b)  # right string and replaced a with b
+        line = "=".join(line)
+        line = str(line + "\n")  # join the two strings
 
-    right = right.replace(a, b)
-    result = left + "=" + right  # convert this line to a function
-    return result
+    # convert line to string
 
+    return line
 
 
 # main
 if __name__ == "__main__":
     convertdata()
+    print("done")
