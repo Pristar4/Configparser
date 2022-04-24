@@ -1,45 +1,57 @@
-import re
-
-
-# extract data.txt from the config.txt.txt file
-def extractdata():
+def readmappingtable():
     with open("config.txt", "r") as f:
-        config = f.read()
-    config = config.split("\n")
-    config = [i.split("=") for i in config if i != ""]
-    return config
+        map = f.read()
+    map = map.split("\n")
+    map = [i.split("=") for i in map if i != ""]
+    print(map)
+    return map
 
 
-def convertdata():  # convert data.txt to converted.txt
-    data = open("data.txt", "r")
-    converted = open("converted.txt", "w")
-    config = extractdata()
-    for line in data:
-        for i in range(len(config)):
-            line = line.replace(config[i][0], config[i][1])
-        converted.write(line)
-    data.close()
-    converted.close()
+def convertdata():  # convert input.txt to output.txt
+    input = open("input.txt", "r")
+    output = open("output.txt", "w")
+    map = readmappingtable()
+    for line in input:
+        for i in range(len(map)):
+            a = map[i][0]
+            b = map[i][1]
+            line = extractline(line, a, b)
+
+        output.write(line)
+    input.close()
+    output.close()
 
 
-# merge the two functions above into one
-def convert():
+def reverseconvertdata():  # reverse the conversion process of convertdata()
+    input = open("output.txt", "r")
+    output = open("input.txt", "w")
+    map = readmappingtable()
+    for line in input:
+        for i in range(len(map)):
+            a = map[i][1]
+            b = map[i][0]
+            line = extractline(line, a, b)
+
+        output.write(line)
+    input.close()
+    output.close()
+
+
+def extractline(line, a, b):
+    # improvment: use regex to replace
+    s = line.split("=")
+    left = s[0]
+    right = s[1]
+
+    right = right.replace(a, b)
+    result = left + "=" + right  # convert this line to a function
+    return result
+
+
+def main():
     convertdata()
-    return extractdata()
 
 
-def rconvert():  # reverse the conversion process
-    data = open("converted.txt", "r")
-    converted = open("data.txt", "w")
-    config = extractdata()
-    for line in data:
-        for i in range(len(config)):
-            line = line.replace(config[i][1], config[i][0])
-        converted.write(line)
-    data.close()
-    converted.close()
-
-
-# main function
-if __name__ == '__main__':
-    convert()
+# main
+if __name__ == "__main__":
+    main()
