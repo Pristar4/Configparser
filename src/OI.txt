@@ -14,6 +14,7 @@ q=q
 w=w
 e=e
 r=r
++=Equals
 t=t
 z=z
 u=u
@@ -21,7 +22,6 @@ i=i
 o=o
 p=p
 ü=BracketOpen
-"+""Equals""BracketClose"
 a=a
 s=s
 d=d
